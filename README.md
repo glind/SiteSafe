@@ -1,7 +1,7 @@
-SecRes
+SiteSafe
 =====
 
-SecRes - site monitor and security profile tool
+SiteSafe - site monitor and security profile tool.  Scan and monitor changes to files and directories.
 
 Install on LAMP stack server to help monitor app and directory contents for
 unwanted changes and additions as well as monitor logs for web site performance 
