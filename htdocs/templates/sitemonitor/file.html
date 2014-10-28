@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block page_title %} {{ site.site_name }} Folder {{ folder.folder_name}} File {{ file.file_name }} Detail View {% endblock %}
+
+{% block content %}
+Site: <a href="{{ site.site_url }}">{{ site.site_url }}</a>
+<br/>
+Folder: {{ folder.folder_name }}
+<br/>
+
+<ul class="list-group">
+    <li class="list-group-item"><b>Name:</b> {{ file.file_name }}</li>
+    <li class="list-group-item"><b>File Type:</b> {{ file.file_type }}</li>
+    <li class="list-group-item"><b>File Path:</b> {{ file.file_path }}</li>
+    <li class="list-group-item"><b>File Hash:</b> {{ file.file_hash }}</li>
+    <li class="list-group-item"><b>Create Date:</b> {{ file.create_date }}</li>
+    <li class="list-group-item"><b>Edit Date:</b> {{ file.edit_date }}</li>
+
+    {% if file.unverified_change == 1  %}
+        <li class="list-group-item" style="background-color:red"><b>Unverified Change:</b> {{ file.unverified_change }} </li>
+        <form action="/file_approve/{{file.id}}/" method="post">
+            {% csrf_token %}
+            <li class="list-group-item"><b>Approve Change:</b> &nbsp;
+            <input type="hidden" name="id" value="{{file.id}}">
+            <input type="submit" name="submit" class="btn btn-sm btn-success" value="approve"></li>
+        </form>
+    {% else %}
+        <li class="list-group-item"><b>Unverified Change:</b> {{ file.unverified_change }} </li>
+    {% endif %}
+</ul>
+
+<div>
+{% for f in file.get_all_fields %}
+    <dt>{{f.label|capfirst}}</dt>
+    <dd>
+    {{f.value|escape|urlize|linebreaks}}
+    </dd>
+{% endfor %}
+</div>
+
+{% endblock content %}
+

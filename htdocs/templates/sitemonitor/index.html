@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block page_title %} List of Monitored Sites {% endblock %}
+
+{% block content %}
+
+{% if latest_site_list %}
+    <ul class="list-group">
+    {% for site in latest_site_list %}
+        <li class="list-group-item"><a href="site/{{ site.id }}/">{{ site.site_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No sites are available.</p>
+{% endif %}
+
+{% endblock content %}
